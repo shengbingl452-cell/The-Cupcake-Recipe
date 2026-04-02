@@ -1,19 +1,22 @@
-<!DOCTYPE html>
+、<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Cupcake Recipe | 多绚的调味手账</title>
-    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&family=Noto+Serif+SC:wght@400;700&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Reenie+Beanie&family=ZCOOL+XiaoWei&family=Noto+Serif+SC:wght@400;700&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-paper: #FFFDF5;       /* 奶白色纸张 */
-            --accent-pink: #F8D7DA;   /* 奶油粉 */
-            --text-brown: #5D4037;    /* 咖啡色文字 */
-            --grid-line: #EBE7D9;     /* 网格线 */
-            --margin-line: #F2A7AD;   /* 手账红边线 */
+            --bg-paper: #FFFDF5;
+            --accent-pink: #F8D7DA;
+            --text-brown: #5D4037;
+            --grid-line: #EBE7D9;
+            --margin-line: #F2A7AD;
             --washi-pink: rgba(248, 215, 218, 0.7);
-            --washi-blue: rgba(178, 216, 216, 0.7);
+            /* 字体定义 */
+            --font-handwriting: 'Reenie Beanie', cursive;
+            --font-zh-title: 'ZCOOL XiaoWei', serif;
+            --font-zh-body: 'Noto Serif SC', serif;
         }
 
         * {
@@ -23,15 +26,15 @@
         }
 
         body {
-            background-color: #E6E2D3; /* 桌面底板色 */
-            font-family: 'Noto Serif SC', serif;
+            background-color: #E6E2D3;
+            font-family: var(--font-zh-body);
             color: var(--text-brown);
             padding: 20px;
             display: flex;
             justify-content: center;
         }
 
-        /* 手账本容器 */
+        /* 手账容器 */
         .journal-book {
             width: 100%;
             max-width: 900px;
@@ -40,36 +43,35 @@
             position: relative;
             box-shadow: 10px 10px 40px rgba(0,0,0,0.1);
             padding: 60px 50px;
-            /* 模拟网格纸 */
             background-image: 
                 linear-gradient(var(--grid-line) 1px, transparent 1px),
                 linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
                 linear-gradient(90deg, var(--margin-line) 2px, transparent 2px);
             background-size: 25px 25px, 25px 25px, 100% 100%;
-            background-position: 0 0, 0 0, 40px 0; /* 红线在左侧40px处 */
+            background-position: 0 0, 0 0, 40px 0;
         }
 
-        /* 装饰性胶带 */
+        /* 胶带 */
         .washi-tape {
             position: absolute;
-            width: 130px;
-            height: 35px;
-            top: -15px;
+            width: 150px;
+            height: 38px;
+            top: -10px;
             left: 50%;
-            transform: translateX(-50%) rotate(-2deg);
+            transform: translateX(-50%) rotate(-1deg);
             background: var(--washi-pink);
             z-index: 10;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
-            color: rgba(255,255,255,0.8);
+            font-family: var(--font-handwriting);
+            font-size: 22px;
+            color: rgba(93, 64, 55, 0.6);
             border-left: 2px dashed rgba(255,255,255,0.5);
             border-right: 2px dashed rgba(255,255,255,0.5);
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.03);
         }
 
-        /* 顶部标题区 */
         header {
             text-align: center;
             margin-bottom: 40px;
@@ -78,25 +80,26 @@
         }
 
         .art-title {
-            font-family: 'ZCOOL XiaoWei', serif;
-            font-size: 3.5rem;
-            margin-bottom: 5px;
+            font-family: var(--font-handwriting);
+            font-size: 4.5rem; /* Reenie Beanie 较细，稍微加大字号 */
+            line-height: 1;
+            font-weight: 400;
         }
 
         .subtitle {
             font-family: 'Ma Shan Zheng', cursive;
             font-size: 1.5rem;
+            margin-top: 10px;
             opacity: 0.8;
         }
 
-        /* 导航栏 */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 40px;
-            background: rgba(255,255,255,0.5);
-            padding: 10px;
+            background: rgba(255,255,255,0.4);
+            padding: 10px 15px;
             border-radius: 5px;
         }
 
@@ -104,121 +107,116 @@
             text-decoration: none;
             color: var(--text-brown);
             margin-right: 20px;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: bold;
         }
 
-        .nav-links a:hover { color: #D48891; }
-
-        .search-bar input {
-            border: 1px solid var(--grid-line);
-            padding: 5px 10px;
-            border-radius: 20px;
-            background: var(--bg-paper);
-            font-family: inherit;
-            outline: none;
+        .nav-links a span {
+            font-family: var(--font-handwriting);
+            font-size: 18px;
+            font-weight: normal;
+            margin-left: 5px;
         }
 
-        /* [风味拼贴] 卡片流 */
+        .search-bar input {
+            border: none;
+            border-bottom: 1px solid var(--text-brown);
+            padding: 5px;
+            background: transparent;
+            font-family: var(--font-handwriting);
+            font-size: 20px;
+            outline: none;
+            width: 150px;
+        }
+
+        /* 核心内容区 */
         .section-title {
-            font-family: 'ZCOOL XiaoWei', serif;
-            margin: 30px 0 20px 20px;
-            padding-left: 10px;
-            border-left: 5px solid var(--accent-pink);
+            font-family: var(--font-zh-title);
+            margin: 30px 0 20px 0;
+            padding-left: 15px;
+            border-left: 4px solid var(--accent-pink);
+        }
+
+        .section-title span {
+            font-family: var(--font-handwriting);
+            font-size: 24px;
+            margin-left: 10px;
         }
 
         .flavor-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 30px;
             margin-bottom: 60px;
         }
 
         .recipe-card {
             background: #fff;
-            padding: 12px;
+            padding: 15px;
             border: 1px solid #EEE;
-            transform: rotate(calc(var(--r, 0deg)));
-            transition: 0.3s;
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             box-shadow: 3px 3px 10px rgba(0,0,0,0.05);
+            position: relative;
         }
-
-        .recipe-card:nth-child(odd) { --r: 1deg; }
-        .recipe-card:nth-child(even) { --r: -1.2deg; }
 
         .recipe-card:hover {
-            transform: scale(1.03) rotate(0deg);
+            transform: scale(1.05) rotate(1deg);
             z-index: 5;
-            box-shadow: 10px 10px 20px rgba(0,0,0,0.1);
+            box-shadow: 15px 15px 30px rgba(0,0,0,0.1);
         }
 
-        .card-img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border: 1px solid #f9f9f9;
-        }
+        .card-img { width: 100%; height: 200px; object-fit: cover; border-radius: 2px; }
 
         .flavor-tag {
             display: inline-block;
-            padding: 2px 10px;
-            font-size: 12px;
+            padding: 0px 12px;
+            font-family: var(--font-handwriting);
+            font-size: 20px;
             background: var(--accent-pink);
             margin-top: 10px;
-            border-radius: 3px;
+            border-radius: 2px;
         }
 
-        .recipe-card h3 {
-            font-size: 18px;
-            margin: 10px 0;
-        }
+        .recipe-card h3 { font-size: 1.1rem; margin: 10px 0 5px; }
 
-        /* [甜点师笔记] 单栏排版 */
-        .notes-list {
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
+        /* 笔记区 */
         .note-page {
             background: white;
-            padding: 30px;
-            margin-bottom: 30px;
+            padding: 40px;
             border: 1px solid #EEE;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.02);
-            /* 模拟横线纸 */
             background-image: linear-gradient(#f1f1f1 1px, transparent 1px);
             background-size: 100% 2.5rem;
             line-height: 2.5rem;
+            font-size: 1.1rem;
         }
 
         .note-date {
-            font-size: 12px;
-            color: #999;
+            font-family: var(--font-handwriting);
+            font-size: 22px;
             text-align: right;
-            border-bottom: 1px solid #eee;
-            margin-bottom: 10px;
+            color: #999;
         }
 
         footer {
             text-align: center;
-            font-size: 12px;
-            color: #AAA;
-            margin-top: 50px;
+            font-family: var(--font-handwriting);
+            font-size: 20px;
+            color: #888;
+            margin-top: 60px;
             padding-bottom: 20px;
         }
 
-        /* 响应式 */
         @media (max-width: 600px) {
             .journal-book { padding: 40px 20px; }
-            .art-title { font-size: 2.2rem; }
-            nav { flex-direction: column; gap: 15px; }
+            .art-title { font-size: 3rem; }
+            nav { flex-direction: column; gap: 10px; }
         }
     </style>
 </head>
 <body>
 
     <div class="journal-book">
-        <div class="washi-tape">Cupcake Memo</div>
+        <div class="washi-tape">stella's recipe</div>
 
         <header>
             <h1 class="art-title">The Cupcake Recipe</h1>
@@ -227,48 +225,45 @@
 
         <nav>
             <div class="nav-links">
-                <a href="#collage">风味拼贴</a>
-                <a href="#notes">甜点师笔记</a>
-                <a href="#search">配方检索</a>
+                <a href="#collage">风味拼贴 <span>Collage</span></a>
+                <a href="#notes">甜点师笔记 <span>Notes</span></a>
             </div>
             <div class="search-bar">
-                <input type="text" placeholder="寻找心仪的口味...">
+                <input type="text" placeholder="search flavor...">
             </div>
         </nav>
 
         <main>
             <section id="collage">
-                <h2 class="section-title">风味拼贴 / Flavor Collage</h2>
+                <h2 class="section-title">风味拼贴 <span>Flavor Collage</span></h2>
                 <div class="flavor-grid">
                     <article class="recipe-card">
                         <img src="https://via.placeholder.com/300x200" alt="Stella" class="card-img">
-                        <span class="flavor-tag" style="background-color: #B2D8D8;">薄荷味 Mint</span>
+                        <span class="flavor-tag">Sea Salt</span>
                         <h3>Stella × Dahyun</h3>
-                        <p style="font-size: 13px; color: #666;">一段微凉如薄荷的夏日偶遇，记录了那些从未说出口的台词。</p>
+                        <p style="font-size: 14px; color: #666;">一段微凉如海风的记忆，被小心地夹在手账的第 12 页。</p>
                     </article>
 
                     <article class="recipe-card">
                         <img src="https://via.placeholder.com/300x200" alt="Stella" class="card-img">
-                        <span class="flavor-tag" style="background-color: #F8E5D7;">焦糖味 Caramel</span>
+                        <span class="flavor-tag" style="background:#DEECFF;">Sweet Mint</span>
                         <h3>Stella × Role B</h3>
-                        <p style="font-size: 13px; color: #666;">浓郁而粘稠的情感，像在炉火上慢慢熬煮的焦糖，透着丝丝苦甜。</p>
+                        <p style="font-size: 14px; color: #666;">薄荷的清爽与奶油的甜腻，混合出一种夏日限定的悸动。</p>
                     </article>
                 </div>
             </section>
 
             <section id="notes">
-                <h2 class="section-title">甜点师笔记 / Chef's Notes</h2>
-                <div class="notes-list">
-                    <div class="note-page">
-                        <div class="note-date">2024.03.13 • 晴</div>
-                        <p>今天尝试在手账里加入新的配方。Stella 的笑容像刚出炉的纸杯蛋糕，蓬松又带着香草的香气。那种感觉，应该被定义为“无添加的纯甜”吧……</p>
-                    </div>
+                <h2 class="section-title">甜点师笔记 <span>Chef's Notes</span></h2>
+                <div class="note-page">
+                    <div class="note-date">April 3, 2026</div>
+                    <p>今天在厨房调试新的“Stella味”配方。与其说是甜点，不如说是一种关于治愈的化学反应。那种感觉就像在深秋喝到一杯热巧克力，暖意从指尖一直蔓延到心里。</p>
                 </div>
             </section>
         </main>
 
         <footer>
-            <p>Designed for Stella | 《多绚的调味手账》个人存档站</p>
+            <p>Handmade with love for Stella @ 2026</p>
         </footer>
     </div>
 
