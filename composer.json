@@ -1,7 +1,15 @@
 {
-    "name": "sarang-ai-web",
-    "description": "PHP backend for Sarang AI",
+    "name": "stella/the-cupcake-recipe",
+    "description": "The Cupcake Recipe - Stella Digital Collection",
+    "type": "project",
     "require": {
-        "php": "^8.2"
-    }
+        "php": ">=7.4"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Stella OS Author"
+        }
+    ],
+    "minimum-stability": "stable"
 }
