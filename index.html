@@ -1,10 +1,10 @@
-、<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Cupcake Recipe | 多绚的调味手账</title>
-    <link href="https://fonts.googleapis.com/css2?family=Reenie+Beanie&family=ZCOOL+XiaoWei&family=Noto+Serif+SC:wght@400;700&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Noto+Serif+SC:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-paper: #FFFDF5;
@@ -13,10 +13,12 @@
             --grid-line: #EBE7D9;
             --margin-line: #F2A7AD;
             --washi-pink: rgba(248, 215, 218, 0.7);
-            /* 字体定义 */
-            --font-handwriting: 'Reenie Beanie', cursive;
-            --font-zh-title: 'ZCOOL XiaoWei', serif;
-            --font-zh-body: 'Noto Serif SC', serif;
+            --washi-mint: rgba(222, 236, 255, 0.7);
+            
+            /* 字体配置 */
+            --font-en-title: 'Dancing Script', cursive;
+            /* 中文标题与正文：优先华文行楷，备选苹方细体 */
+            --font-zh-main: "STXingkai", "华文行楷", "PingFang SC", "Lantinghei SC", "Microsoft YaHei", sans-serif;
         }
 
         * {
@@ -27,11 +29,13 @@
 
         body {
             background-color: #E6E2D3;
-            font-family: var(--font-zh-body);
+            font-family: var(--font-zh-main);
+            font-weight: 300; /* 模拟细笔迹 */
             color: var(--text-brown);
             padding: 20px;
             display: flex;
             justify-content: center;
+            -webkit-font-smoothing: antialiased;
         }
 
         /* 手账容器 */
@@ -51,12 +55,12 @@
             background-position: 0 0, 0 0, 40px 0;
         }
 
-        /* 胶带 */
-        .washi-tape {
+        /* 顶部装饰胶带 */
+        .washi-tape-top {
             position: absolute;
-            width: 150px;
-            height: 38px;
-            top: -10px;
+            width: 160px;
+            height: 40px;
+            top: -15px;
             left: 50%;
             transform: translateX(-50%) rotate(-1deg);
             background: var(--washi-pink);
@@ -64,33 +68,31 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: var(--font-handwriting);
-            font-size: 22px;
-            color: rgba(93, 64, 55, 0.6);
-            border-left: 2px dashed rgba(255,255,255,0.5);
-            border-right: 2px dashed rgba(255,255,255,0.5);
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.03);
+            font-family: var(--font-en-title);
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.05);
+            clip-path: polygon(0% 0%, 100% 0%, 98% 50%, 100% 100%, 0% 100%, 2% 50%); /* 撕裂边缘感 */
         }
 
         header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             border-bottom: 1px dashed var(--text-brown);
-            padding-bottom: 20px;
+            padding-bottom: 25px;
         }
 
         .art-title {
-            font-family: var(--font-handwriting);
-            font-size: 4.5rem; /* Reenie Beanie 较细，稍微加大字号 */
-            line-height: 1;
-            font-weight: 400;
+            font-family: var(--font-en-title);
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: -10px;
         }
 
         .subtitle {
-            font-family: 'Ma Shan Zheng', cursive;
-            font-size: 1.5rem;
-            margin-top: 10px;
-            opacity: 0.8;
+            font-size: 1.6rem;
+            font-weight: 300;
+            letter-spacing: 4px;
         }
 
         nav {
@@ -98,125 +100,122 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 40px;
-            background: rgba(255,255,255,0.4);
-            padding: 10px 15px;
-            border-radius: 5px;
+            background: rgba(255,255,255,0.3);
+            padding: 12px 20px;
+            border-radius: 4px;
         }
 
         .nav-links a {
             text-decoration: none;
             color: var(--text-brown);
-            margin-right: 20px;
-            font-size: 16px;
-            font-weight: bold;
+            margin-right: 25px;
+            font-size: 1.1rem;
+            transition: 0.3s;
         }
 
-        .nav-links a span {
-            font-family: var(--font-handwriting);
-            font-size: 18px;
-            font-weight: normal;
-            margin-left: 5px;
+        .nav-links a:hover { opacity: 0.6; }
+
+        /* 卡片标签（纸胶带效果） */
+        .flavor-tag {
+            display: inline-block;
+            font-family: var(--font-en-title);
+            font-size: 1.2rem;
+            letter-spacing: 1px; /* 需求设定 */
+            background: var(--washi-mint);
+            padding: 2px 15px;
+            margin-top: 10px;
+            position: relative;
+            box-shadow: 1px 1px 3px rgba(0,0,0,0.05);
+            /* 模拟纸胶带半透明撕裂感 */
+            border-left: 2px dotted rgba(255,255,255,0.5);
+            border-right: 2px dotted rgba(255,255,255,0.5);
         }
 
-        .search-bar input {
-            border: none;
-            border-bottom: 1px solid var(--text-brown);
-            padding: 5px;
-            background: transparent;
-            font-family: var(--font-handwriting);
-            font-size: 20px;
-            outline: none;
-            width: 150px;
-        }
-
-        /* 核心内容区 */
+        /* 内容板块 */
         .section-title {
-            font-family: var(--font-zh-title);
-            margin: 30px 0 20px 0;
+            font-size: 1.8rem;
+            margin: 40px 0 20px;
+            font-weight: 400;
+            border-left: 5px solid var(--accent-pink);
             padding-left: 15px;
-            border-left: 4px solid var(--accent-pink);
-        }
-
-        .section-title span {
-            font-family: var(--font-handwriting);
-            font-size: 24px;
-            margin-left: 10px;
         }
 
         .flavor-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 30px;
+            gap: 35px;
             margin-bottom: 60px;
         }
 
         .recipe-card {
             background: #fff;
             padding: 15px;
-            border: 1px solid #EEE;
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 3px 3px 10px rgba(0,0,0,0.05);
-            position: relative;
+            border: 1px solid #f0f0f0;
+            transition: 0.4s ease;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.03);
         }
 
         .recipe-card:hover {
-            transform: scale(1.05) rotate(1deg);
-            z-index: 5;
-            box-shadow: 15px 15px 30px rgba(0,0,0,0.1);
+            transform: translateY(-10px) rotate(1deg);
+            box-shadow: 15px 20px 35px rgba(0,0,0,0.07);
         }
 
-        .card-img { width: 100%; height: 200px; object-fit: cover; border-radius: 2px; }
-
-        .flavor-tag {
-            display: inline-block;
-            padding: 0px 12px;
-            font-family: var(--font-handwriting);
-            font-size: 20px;
-            background: var(--accent-pink);
-            margin-top: 10px;
-            border-radius: 2px;
+        .card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            filter: sepia(10%); /* 增加复古滤镜 */
         }
 
-        .recipe-card h3 { font-size: 1.1rem; margin: 10px 0 5px; }
+        .recipe-card h3 {
+            font-size: 1.4rem;
+            margin: 15px 0 8px;
+            font-weight: 400;
+        }
 
         /* 笔记区 */
         .note-page {
             background: white;
             padding: 40px;
-            border: 1px solid #EEE;
-            background-image: linear-gradient(#f1f1f1 1px, transparent 1px);
-            background-size: 100% 2.5rem;
-            line-height: 2.5rem;
-            font-size: 1.1rem;
-        }
-
-        .note-date {
-            font-family: var(--font-handwriting);
-            font-size: 22px;
-            text-align: right;
-            color: #999;
+            border: 1px solid #f0f0f0;
+            background-image: linear-gradient(#f9f9f9 1px, transparent 1px);
+            background-size: 100% 2.8rem;
+            line-height: 2.8rem;
+            font-size: 1.2rem;
+            min-height: 300px;
         }
 
         footer {
             text-align: center;
-            font-family: var(--font-handwriting);
-            font-size: 20px;
-            color: #888;
-            margin-top: 60px;
-            padding-bottom: 20px;
+            padding: 40px 0;
+            font-family: var(--font-en-title);
+            font-size: 1.5rem;
+            opacity: 0.7;
+        }
+
+        /* 搜索框优化 */
+        .search-bar input {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--text-brown);
+            font-family: var(--font-zh-main);
+            font-weight: 300;
+            padding: 5px;
+            outline: none;
+            width: 180px;
         }
 
         @media (max-width: 600px) {
-            .journal-book { padding: 40px 20px; }
+            .journal-book { padding: 40px 15px; }
             .art-title { font-size: 3rem; }
-            nav { flex-direction: column; gap: 10px; }
+            .subtitle { font-size: 1.2rem; }
         }
     </style>
 </head>
 <body>
 
     <div class="journal-book">
-        <div class="washi-tape">stella's recipe</div>
+        <div class="washi-tape-top">Stella's Journal</div>
 
         <header>
             <h1 class="art-title">The Cupcake Recipe</h1>
@@ -225,45 +224,46 @@
 
         <nav>
             <div class="nav-links">
-                <a href="#collage">风味拼贴 <span>Collage</span></a>
-                <a href="#notes">甜点师笔记 <span>Notes</span></a>
+                <a href="#collage">风味拼贴</a>
+                <a href="#notes">甜点师笔记</a>
             </div>
             <div class="search-bar">
-                <input type="text" placeholder="search flavor...">
+                <input type="text" placeholder="搜寻一种味道...">
             </div>
         </nav>
 
         <main>
             <section id="collage">
-                <h2 class="section-title">风味拼贴 <span>Flavor Collage</span></h2>
+                <h2 class="section-title">风味拼贴</h2>
                 <div class="flavor-grid">
                     <article class="recipe-card">
-                        <img src="https://via.placeholder.com/300x200" alt="Stella" class="card-img">
-                        <span class="flavor-tag">Sea Salt</span>
-                        <h3>Stella × Dahyun</h3>
-                        <p style="font-size: 14px; color: #666;">一段微凉如海风的记忆，被小心地夹在手账的第 12 页。</p>
+                        <img src="https://via.placeholder.com/400x300/fdf5e6/5d4037?text=Stella+Collage" alt="Stella" class="card-img">
+                        <span class="flavor-tag">Sea Salt Caramel</span>
+                        <h3>Stella × 多绚</h3>
+                        <p>海盐的清冷撞上焦糖的浓郁，这是一份关于“克制”与“热烈”的调味报告。</p>
                     </article>
 
                     <article class="recipe-card">
-                        <img src="https://via.placeholder.com/300x200" alt="Stella" class="card-img">
-                        <span class="flavor-tag" style="background:#DEECFF;">Sweet Mint</span>
-                        <h3>Stella × Role B</h3>
-                        <p style="font-size: 14px; color: #666;">薄荷的清爽与奶油的甜腻，混合出一种夏日限定的悸动。</p>
+                        <img src="https://via.placeholder.com/400x300/fdf5e6/5d4037?text=Cupcake+Recipe" alt="Stella" class="card-img">
+                        <span class="flavor-tag" style="background: var(--washi-pink);">Honey Peach</span>
+                        <h3>Stella × ???</h3>
+                        <p>像是在夏日午后咬开一颗多汁的水蜜桃，满手账都是粉色的香气。</p>
                     </article>
                 </div>
             </section>
 
             <section id="notes">
-                <h2 class="section-title">甜点师笔记 <span>Chef's Notes</span></h2>
+                <h2 class="section-title">甜点师笔记</h2>
                 <div class="note-page">
-                    <div class="note-date">April 3, 2026</div>
-                    <p>今天在厨房调试新的“Stella味”配方。与其说是甜点，不如说是一种关于治愈的化学反应。那种感觉就像在深秋喝到一杯热巧克力，暖意从指尖一直蔓延到心里。</p>
+                    <p>四月三日。天气微凉。<br>
+                    在翻看旧影集的时候，突然想到了“纸杯蛋糕”这个喻体。外壳是坚韧的纸托，内心是柔软的胚体，最后覆上一层绚烂的奶油装饰。这不就是 Stella 吗？<br>
+                    我试图用文字捕捉那种甜而不腻的瞬间，就像在手账本里偷偷夹进一朵干花。</p>
                 </div>
             </section>
         </main>
 
         <footer>
-            <p>Handmade with love for Stella @ 2026</p>
+            <p>Crafted by @一只流泪的狗</p>
         </footer>
     </div>
 
