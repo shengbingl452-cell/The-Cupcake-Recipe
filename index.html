@@ -12,11 +12,12 @@
             --text-brown: #5D4037;
             --grid-line: #EBE7D9;
             --margin-line: #F2A7AD;
-            --washi-pink: rgba(248, 215, 218, 0.7);
-            --washi-blue: rgba(186, 212, 230, 0.7);
-            --washi-yellow: rgba(250, 237, 193, 0.7);
+            /* 胶带颜色库 */
+            --tape-pink: rgba(248, 215, 218, 0.8);
+            --tape-blue: rgba(186, 212, 230, 0.8);
+            --tape-gold: rgba(250, 237, 193, 0.8);
+            --tape-mint: rgba(210, 235, 220, 0.8);
             
-            /* 字体配置 */
             --font-en: 'Dancing Script', cursive;
             --font-zh: "STXingkai", "华文行楷", "PingFang SC", "Lantinghei SC", sans-serif;
         }
@@ -26,7 +27,7 @@
         body {
             background-color: #E6E2D3;
             font-family: var(--font-zh);
-            font-weight: 300; /* 模拟细笔迹 */
+            font-weight: 300;
             color: var(--text-brown);
             padding: 20px;
             display: flex;
@@ -34,218 +35,199 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 手账容器 */
+        /* 手账本主体 */
         .journal-book {
             width: 100%;
-            max-width: 900px;
+            max-width: 950px;
             background-color: var(--bg-paper);
             min-height: 100vh;
             position: relative;
-            box-shadow: 10px 10px 40px rgba(0,0,0,0.1);
-            padding: 60px 50px;
+            box-shadow: 10px 10px 50px rgba(0,0,0,0.1);
+            padding: 70px 60px;
+            /* 网格线与边线 */
             background-image: 
                 linear-gradient(var(--grid-line) 1px, transparent 1px),
                 linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
                 linear-gradient(90deg, var(--margin-line) 2px, transparent 2px);
             background-size: 25px 25px, 25px 25px, 100% 100%;
-            background-position: 0 0, 0 0, 40px 0;
+            background-position: 0 0, 0 0, 50px 0;
         }
 
-        /* 顶部装饰 */
-        .washi-tape-top {
-            position: absolute;
-            width: 160px;
-            height: 40px;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%) rotate(-1deg);
-            background: var(--washi-pink);
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: var(--font-en);
-            font-size: 1.5rem;
-            color: rgba(93, 64, 55, 0.5);
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.02);
-            clip-path: polygon(0% 0%, 100% 0%, 96% 50%, 100% 100%, 0% 100%, 4% 50%);
-        }
-
+        /* 顶部大标题 */
         header {
             text-align: center;
-            margin-bottom: 50px;
-            border-bottom: 1px dashed var(--text-brown);
-            padding-bottom: 25px;
+            margin-bottom: 60px;
+            position: relative;
         }
 
-        .art-title { font-family: var(--font-en); font-size: 4.5rem; font-weight: 700; margin-bottom: -15px; }
-        .subtitle { font-size: 1.6rem; letter-spacing: 5px; opacity: 0.9; }
+        .art-title {
+            font-family: var(--font-en);
+            font-size: 5rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 5px;
+        }
 
+        .subtitle {
+            font-size: 1.8rem;
+            letter-spacing: 6px;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+
+        /* 导航栏 */
         nav {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
-            background: rgba(255,255,255,0.4);
-            padding: 10px 20px;
-            border-radius: 4px;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 50px;
+            border-top: 1px solid var(--text-brown);
+            border-bottom: 1px solid var(--text-brown);
+            padding: 15px 0;
         }
 
-        .nav-links a { text-decoration: none; color: var(--text-brown); margin-right: 20px; font-size: 1.1rem; }
+        nav a {
+            text-decoration: none;
+            color: var(--text-brown);
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
 
-        /* 内容板块通用 */
+        nav a:hover { transform: scale(1.1); color: #D48891; }
+
+        /* 板块标题 */
         .section-title {
-            font-size: 1.8rem;
-            margin: 50px 0 30px;
-            padding-left: 15px;
-            border-left: 4px solid var(--accent-pink);
+            font-size: 2rem;
+            margin: 60px 0 30px;
+            font-weight: 400;
             display: flex;
-            align-items: baseline;
+            align-items: center;
+        }
+
+        .section-title::before {
+            content: "🔖";
+            margin-right: 10px;
+            font-size: 1.5rem;
         }
 
         .section-title span {
             font-family: var(--font-en);
-            font-size: 1.5rem;
-            margin-left: 10px;
-            opacity: 0.6;
+            font-size: 1.8rem;
+            margin-left: 15px;
+            color: #999;
         }
 
-        /* 风味拼贴网格 */
+        /* 网格布局 */
         .flavor-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 40px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 45px;
         }
 
-        /* 纸胶带标签效果 */
-        .flavor-tag {
-            display: inline-block;
-            font-family: var(--font-en);
-            font-size: 1.2rem;
-            letter-spacing: 1px;
-            background: var(--washi-blue);
-            padding: 2px 15px;
-            margin-bottom: 10px;
-            position: relative;
-            box-shadow: 1px 1px 3px rgba(0,0,0,0.05);
-            border-left: 2px dotted rgba(255,255,255,0.6);
-            border-right: 2px dotted rgba(255,255,255,0.6);
-        }
-
-        /* 卡片设计 (拍立得风格) */
+        /* 卡片设计 (拍立得+纸胶带) */
         .recipe-card {
             background: #fff;
-            padding: 15px 15px 35px 15px; /* 底部留白多一点写名字 */
+            padding: 15px 15px 40px 15px;
             border: 1px solid #f0f0f0;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 5px 8px 20px rgba(0,0,0,0.04);
+            box-shadow: 5px 8px 15px rgba(0,0,0,0.03);
             position: relative;
+            transition: 0.4s ease;
         }
 
-        .recipe-card:nth-child(even) { transform: rotate(1.5deg); }
-        .recipe-card:nth-child(odd) { transform: rotate(-1.2deg); }
-
         .recipe-card:hover {
-            transform: translateY(-10px) rotate(0deg) scale(1.02);
-            z-index: 10;
+            transform: translateY(-10px) scale(1.03);
+            z-index: 5;
             box-shadow: 15px 25px 40px rgba(0,0,0,0.08);
         }
 
         .card-img {
             width: 100%;
-            height: 180px;
+            height: 200px;
             object-fit: cover;
             border: 1px solid #eee;
-            filter: sepia(5%) contrast(95%);
+            filter: sepia(5%);
+        }
+
+        /* 纸胶带标签 */
+        .flavor-tag {
+            display: inline-block;
+            font-family: var(--font-en);
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+            padding: 2px 18px;
+            margin-bottom: 12px;
+            position: relative;
+            box-shadow: 1px 1px 3px rgba(0,0,0,0.05);
+            /* 胶带撕裂感 */
+            border-left: 2px dotted rgba(255,255,255,0.7);
+            border-right: 2px dotted rgba(255,255,255,0.7);
         }
 
         .recipe-card h3 {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             margin-top: 15px;
             font-weight: 400;
             text-align: center;
         }
 
-        .recipe-card p {
-            font-size: 0.95rem;
-            color: #777;
-            text-align: center;
-            margin-top: 5px;
-        }
-
-        /* 笔记区 */
+        /* 笔记区域 */
         .note-page {
             background: white;
-            padding: 40px;
+            padding: 50px;
             border: 1px solid #f0f0f0;
             background-image: linear-gradient(#f9f9f9 1px, transparent 1px);
-            background-size: 100% 2.8rem;
-            line-height: 2.8rem;
-            font-size: 1.2rem;
+            background-size: 100% 3rem;
+            line-height: 3rem;
+            font-size: 1.3rem;
+            margin-bottom: 50px;
         }
 
         footer {
             text-align: center;
-            padding: 60px 0;
+            padding: 50px 0;
             font-family: var(--font-en);
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             opacity: 0.6;
         }
 
-        .search-bar input {
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid var(--text-brown);
-            padding: 5px;
-            width: 150px;
-            outline: none;
-            font-family: var(--font-zh);
-        }
-
-        @media (max-width: 600px) {
-            .journal-book { padding: 40px 15px; }
-            .art-title { font-size: 3rem; }
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .journal-book { padding: 40px 20px; }
+            .art-title { font-size: 3.5rem; }
+            nav { gap: 15px; flex-wrap: wrap; }
         }
     </style>
 </head>
 <body>
 
     <div class="journal-book">
-        <div class="washi-tape-top">April Collection</div>
-
         <header>
             <h1 class="art-title">The Cupcake Recipe</h1>
             <p class="subtitle">多绚的调味手账</p>
         </header>
 
         <nav>
-            <div class="nav-links">
-                <a href="#collage-1">初遇系列</a>
-                <a href="#collage-2">季节限定</a>
-                <a href="#notes">甜点笔记</a>
-            </div>
-            <div class="search-bar">
-                <input type="text" placeholder="寻找风味...">
-            </div>
+            <a href="#collage-1">初遇 · First</a>
+            <a href="#collage-2">季节 · Seasonal</a>
+            <a href="#collage-3">余韵 · Aftertaste</a>
+            <a href="#notes">日记 · Notes</a>
         </nav>
 
         <main>
             <section id="collage-1">
                 <h2 class="section-title">风味拼贴 <span>First Meeting</span></h2>
                 <div class="flavor-grid">
-                    <article class="recipe-card">
-                        <span class="flavor-tag">Sea Salt</span>
-                        <img src="https://via.placeholder.com/400x300/fdf5e6/5d4037?text=Stella+1" alt="Stella" class="card-img">
-                        <h3>Stella × Dahyun</h3>
-                        <p>初次见面的海盐味悸动。</p>
+                    <article class="recipe-card" style="transform: rotate(-1deg);">
+                        <span class="flavor-tag" style="background: var(--tape-blue);">Sea Salt</span>
+                        <img src="https://via.placeholder.com/400x300/fdf5e6/5d4037?text=Stella+1" class="card-img">
+                        <h3>Stella × 多绚</h3>
+                        <p style="text-align:center; font-size:0.9rem; color:#888;">那是微咸的海风吹过的午后。</p>
                     </article>
-
-                    <article class="recipe-card">
-                        <span class="flavor-tag" style="background: var(--washi-pink);">Rose Macaron</span>
-                        <img src="https://via.placeholder.com/400x300/fdf5e6/5d4037?text=Stella+2" alt="Stella" class="card-img">
+                    <article class="recipe-card" style="transform: rotate(1.2deg);">
+                        <span class="flavor-tag" style="background: var(--tape-pink);">Strawberry</span>
+                        <img src="https://via.placeholder.com/400x300/fdf5e6/5d4037?text=Stella+2" class="card-img">
                         <h3>Stella × ???</h3>
-                        <p>玫瑰与马卡龙的暧昧色彩。</p>
+                        <p style="text-align:center; font-size:0.9rem; color:#888;">草莓奶油般的酸甜记忆。</p>
                     </article>
                 </div>
             </section>
@@ -253,18 +235,35 @@
             <section id="collage-2">
                 <h2 class="section-title">风味拼贴 <span>Seasonal Special</span></h2>
                 <div class="flavor-grid">
-                    <article class="recipe-card">
-                        <span class="flavor-tag" style="background: var(--washi-yellow);">Honey Ginger</span>
-                        <img src="https://via.placeholder.com/400x300/fdf5e6/5d4037?text=Winter+Stella" alt="Stella" class="card-img">
+                    <article class="recipe-card" style="transform: rotate(0.5deg);">
+                        <span class="flavor-tag" style="background: var(--tape-gold);">Honey Ginger</span>
+                        <img src="https://via.placeholder.com/400x300/fdf5e6/5d4037?text=Winter" class="card-img">
                         <h3>冬日限定 · Stella</h3>
-                        <p>在暖炉旁分享的一小块生姜蜂蜜蛋糕。</p>
+                        <p style="text-align:center; font-size:0.9rem; color:#888;">生姜蜂蜜带来的暖意。</p>
                     </article>
-
-                    <article class="recipe-card">
-                        <span class="flavor-tag" style="background: #E8F5E9; color: #43A047;">Matcha Latte</span>
-                        <img src="https://via.placeholder.com/400x300/fdf5e6/5d4037?text=Spring+Stella" alt="Stella" class="card-img">
+                    <article class="recipe-card" style="transform: rotate(-1.5deg);">
+                        <span class="flavor-tag" style="background: var(--tape-mint);">Matcha</span>
+                        <img src="https://via.placeholder.com/400x300/fdf5e6/5d4037?text=Spring" class="card-img">
                         <h3>春日余韵 · Stella</h3>
-                        <p>抹茶的微苦，正如那些还未道别的春天。</p>
+                        <p style="text-align:center; font-size:0.9rem; color:#888;">抹茶的微苦是春天的告别。</p>
+                    </article>
+                </div>
+            </section>
+
+            <section id="collage-3">
+                <h2 class="section-title">风味拼贴 <span>Aftertaste Collection</span></h2>
+                <div class="flavor-grid">
+                    <article class="recipe-card" style="transform: rotate(1deg);">
+                        <span class="flavor-tag" style="background: #E1BEE7; color: #6A1B9A;">Lavender</span>
+                        <img src="https://via.placeholder.com/400x300/fdf5e6/5d4037?text=Night" class="card-img">
+                        <h3>深夜物语 · Stella</h3>
+                        <p style="text-align:center; font-size:0.9rem; color:#888;">薰衣草色的梦境碎片。</p>
+                    </article>
+                    <article class="recipe-card" style="transform: rotate(-0.8deg);">
+                        <span class="flavor-tag" style="background: #FFE0B2; color: #E65100;">Caramel</span>
+                        <img src="https://via.placeholder.com/400x300/fdf5e6/5d4037?text=Caramel" class="card-img">
+                        <h3>焦糖记忆 · Stella</h3>
+                        <p style="text-align:center; font-size:0.9rem; color:#888;">被熬煮得很浓稠的思念。</p>
                     </article>
                 </div>
             </section>
@@ -272,8 +271,8 @@
             <section id="notes">
                 <h2 class="section-title">甜点师笔记 <span>Handwritten</span></h2>
                 <div class="note-page">
-                    <p>最近在想，如果把每一段关系都做成甜点，Stella 的那一份大概需要加入很多很多的云朵。那种轻盈的、几乎抓不住的甜，才是最让人着迷的地方。<br>
-                    我在手账本的第二页新贴了一枚抹茶色的胶带，用来记录那些微苦但回甘的瞬间。</p>
+                    <p>第 403 页。今天的调味实验非常成功。<br>
+                    我发现 Stella 的笑容里藏着一种无法复刻的香草比例。不是超市里售卖的那种精装版，而是手作店里带着颗粒感的、粗砺但真诚的香气。这种味道，我想用一整个板块来珍藏。</p>
                 </div>
             </section>
         </main>
